@@ -5,7 +5,11 @@ template <typename T>
 class QueueArray{
     T *arr;        
     int front, rear, size, capacity;    
-
+    void swap(T& a, T& b) {
+        T temp = a;
+        a = b;
+        b = temp;
+    }
 public:
     QueueArray(int capacity) {
         arr = new T[capacity];
@@ -38,6 +42,14 @@ public:
             cout << arr[(front + i) % capacity] << " ";
         }
         cout << endl;
+    }
+    void reverse() { // recently requested by Eng. Omar
+        int start = front, end = rear;
+        for(int i=0; i<size/2; i++) {
+            swap(arr[start], arr[end]);
+            start = (start + 1) % capacity;
+            end = (end - 1 + capacity) % capacity;
+        }
     }
     ~QueueArray() {
         delete[] arr;

@@ -10,7 +10,7 @@ class QueueLinkedList {
     bool isEmpty(){
         return front == NULL;
     }
-
+    
 public:
     QueueLinkedList() { front = rear = NULL; }
     void enqueue(T data) {

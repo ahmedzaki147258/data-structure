@@ -7,9 +7,7 @@ template <typename T>
 class Node{
 public:
     T data;
-    Node<T>* next;
-    Node<T>* prev;
-
+    Node<T> *next, *prev;
     Node(T data){
         this->data = data;
         this->next = NULL;
@@ -21,7 +19,7 @@ template <typename T>
 class LinkedList{
     Node<T>* head;
     Node<T>* tail;
-    static int count;
+    int count = 0; // static
 
     Node<T>* findElement(T data){
         Node<T>* curr = head;
@@ -31,6 +29,12 @@ class LinkedList{
         }
         return NULL;
     }
+    void swapNodeData(Node<T>* a, Node<T>* b){        
+        T temp = a->data;
+        a->data = b->data;
+        b->data = temp;
+    }
+
 public:
     LinkedList() {
         this->head = NULL;
@@ -38,7 +42,7 @@ public:
     }
 
     void addNode(T data) { // always add at the end
-        LinkedList::count++;
+        count++;
         Node<T>* newNode = new Node<T>(data);
         if(head == NULL){
             head = tail = newNode;
@@ -50,7 +54,7 @@ public:
     }
 
     void addNode(int index, T data){
-        if(index < 0 || index > LinkedList::count) return;
+        if(index < 0 || index > count) return;
 
         Node<T>* newNode = new Node<T>(data);
         if(index == 0){ // inset at the beginning
@@ -60,9 +64,9 @@ public:
                 newNode->next = head;
                 head->prev = newNode;
                 head = newNode;
-                head->prev = NULL; 
+                // head->prev = NULL; 
             } 
-        } else if(index == LinkedList::count){ // insert at the end
+        } else if(index == count){ // insert at the end
             tail->next = newNode;
             newNode->prev = tail;
             tail = newNode;
@@ -76,7 +80,7 @@ public:
             curr->prev->next = newNode;
             curr->prev = newNode;
         }
-        LinkedList::count++;
+        count++;
     }
 
     void insertAfter(int afterData, T data){
@@ -93,7 +97,7 @@ public:
             }
 
             curr->next = newNode;
-            LinkedList::count++;
+            count++;
         }  
     }
 
@@ -110,15 +114,15 @@ public:
                 head = newNode;
             }
             curr->prev = newNode;
-            LinkedList::count++;
+            count++;
         }
     }
 
-    static int getCount(){
-        return LinkedList::count;
+    int getCount(){
+        return count;
     }
     
-    T getDataByIndex(int index){
+    T& operator[](int index){ // getDataByIndex
         if (index < 0) {
             throw invalid_argument("Index cannot be negative");
         }
@@ -155,11 +159,11 @@ public:
         }
 
         delete temp;
-        LinkedList::count--;
+        count--;
     }
 
     void removeNode(int index){
-        if(head == NULL || index < 0 || index >= LinkedList::count) return; // list already empty or validation
+        if(head == NULL || index < 0 || index >= count) return; // list already empty or validation
 
         if(index == 0){ // delete at the beginning
             Node<T>* temp = head;
@@ -170,7 +174,7 @@ public:
                 tail = NULL; // list become empty
             }
             delete temp; // delete first element
-        } else if(LinkedList::count-1 == index){ // delete at the end
+        } else if(count-1 == index){ // delete at the end
             Node<T>* temp = tail;
             tail = tail->prev;
             tail->next = NULL;
@@ -184,7 +188,30 @@ public:
             curr->next->prev = curr->prev;
             delete curr;
         }
-        LinkedList::count--;
+        count--;
+    }
+
+    void reverse(){ // recently requested by Eng. Omar
+        Node<T> *start = head, *end = tail;
+        for(int i=0;i<count/2;i++){
+            swapNodeData(start, end);
+            start = start->next;
+            end = end->prev;
+        }
+    }
+
+    LinkedList& operator+=(const LinkedList& other) { // recently requested by Eng. Omar
+        this->count += other.count;
+        if(!other.head) return *this;
+        if(!this->head){
+            this->head = other.head;
+            this->tail = other.tail;
+        } else {
+            this->tail->next = other.head;
+            other.head->prev = this->tail;
+            this->tail = other.tail;
+        }
+        return *this;
     }
 
     ~LinkedList() {
@@ -196,8 +223,5 @@ public:
         }
     }
 };
-
-template <typename T>
-int LinkedList<T>::count = 0;
 
 #endif // LINKEDLIST_H

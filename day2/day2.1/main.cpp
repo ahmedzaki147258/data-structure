@@ -13,7 +13,7 @@ int main(){
     s1.push(-22.4);
     s1.push(33.9);
     s1.push(-44.2);
-
+    s1.display();
     try{
         cout << "top stacklinkedlist: " << s1.peek() << endl;
         s1.pop();
@@ -183,5 +183,19 @@ int main(){
     }
     q2.display();
 
+    q2.reverse();
+    cout << "QueueArray after reversed: " << endl;
+     try{
+       cout<< "front queue: " << q2.getFront() << endl;
+    } catch (const exception& e) {
+        cout << e.what() << endl;
+    }
+
+    try{
+        cout<< "rear queue: " << q2.getRear() << endl;
+    } catch (const exception& e) {
+        cout << e.what() << endl;
+    }
+    q2.display();
     return 0;
 }

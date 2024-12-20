@@ -11,20 +11,43 @@ int main(){
     list.addNode(0, 45); // insert with (index, data)
     list.insertAfter(7, 130.7); // insert with (afterData, data)
     list.insertBefore(45, 46.5); // insert with (beforeData, data)
-    list.removeNode(); // remove at the end
-    list.removeNode(2); // remove with (index)
+    // list.removeNode(); // remove at the end
+    // list.removeNode(2); // remove with (index)
     list.printList();
 
-    int lengthOfLinkedList = LinkedList<double>::getCount();
+    int lengthOfLinkedList = list.getCount();
     cout << "count: " << lengthOfLinkedList << endl;
     
     for(int i=0; i<lengthOfLinkedList; i++){
         try {
-            cout << "list[" << i << "]: " << list.getDataByIndex(i) << endl;
+            cout << "list[" << i << "]: " << list[i] << endl; // [] operator overloading
         } catch (const exception& e) {
             cout << e.what() << endl;
         }
     }
-   
+
+    list.reverse();
+    cout << "\nLinkedList after reversed: " << endl;
+    for(int i=0; i<lengthOfLinkedList; i++){
+        try {
+            cout << "list[" << i << "]: " << list[i] << endl; // [] operator overloading
+        } catch (const exception& e) {
+            cout << e.what() << endl;
+        }
+    }
+
+    cout << "\nLinkedList after merging: " << endl;
+    LinkedList<double> otherList;
+    otherList.addNode(1);
+    otherList.addNode(2);
+    list += otherList; // += operator overloading
+    lengthOfLinkedList = list.getCount();
+     for(int i=0; i<lengthOfLinkedList; i++){
+        try {
+            cout << "list[" << i << "]: " << list[i] << endl; // [] operator overloading
+        } catch (const exception& e) {
+            cout << e.what() << endl;
+        }
+    }
     return 0;
 }
