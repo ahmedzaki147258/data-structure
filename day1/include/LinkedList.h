@@ -214,6 +214,30 @@ public:
         return *this;
     }
 
+    void bubbleSort(bool asc=true){
+        Node<T> *start = head;
+        for(int i=0;i<count-1;i++){
+            for(int j=0;j<count-i-1;j++){
+                if(asc ? (start->data > start->next->data) : (start->data < start->next->data)){
+                    swapNodeData(start, start->next);
+                }
+                start = start->next;
+            }
+            start = head;
+        }
+    }
+
+    int binarySearch(T target){
+        int left = 0, right = count-1;
+        while (left<=right){
+            int mid = (left + right) / 2;
+            if((*this)[mid] == target) return mid;
+            if((*this)[mid] < target) left = mid+1;
+            else right = mid-1;
+        }
+        return -1;
+    }
+
     ~LinkedList() {
         Node<T>* curr = head;
         while (curr != NULL){

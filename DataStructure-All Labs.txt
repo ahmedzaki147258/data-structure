@@ -1,0 +1,29 @@
+Day1 - LinkedList:
+======================
+   //1. indsert node after given node
+        void InsertAfter(int data, int afterData); 
+   //2. indsert node before given node
+        void InsertBefore(int data, int beforeData); 	
+   //3. get number of nodes 
+        int GetCount();
+   //4. get data in the given 		 			               
+        int GetDataByIndex(int index);		 	
+
+
+Day2 - Stack Queue 
+======================
+   //1- Implement stack using linked list & Array [push,pop,peek,Display]
+   //2- Implement Queue using linked list & Array [enQueue, deQueue, Getfront, GetRear,display]
+
+
+Day3 - Algorithms
+======================
+   //1- Implement linear search on an array.
+	(Bouns)handle cases where the array contains multiple occurrences of the target element.Display all indices where the target element is found.
+   //2- Implement function for Binary searech algorithm using Iterative Method (loop).
+   //3- Implement function for BubleSort for doubly linked list.(Swap data) (bouns Swap nodes)
+
+Day4 - Binary Search Tree 
+==========================
+  // 1- Delete node if it is not root
+  // 2- find the node with min & max value in binary search tree

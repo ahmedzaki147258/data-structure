@@ -49,5 +49,22 @@ int main(){
             cout << e.what() << endl;
         }
     }
+
+    list.bubbleSort(true);
+    cout << "\nLinkedList after sorting: " << endl;
+    lengthOfLinkedList = list.getCount();
+    for(int i=0; i<lengthOfLinkedList; i++){
+        try {
+            cout << "list[" << i << "]: " << list[i] << endl; // [] operator overloading
+        } catch (const exception& e) {
+            cout << e.what() << endl;
+        }
+    }
+
+    
+    int index = list.binarySearch(46.5);
+    cout << "\nBinarySearchRecursive: ";
+    if(index == -1) cout << "Not found!" << endl;
+    else cout << "Found at index[" << index << "]" << endl;
     return 0;
 }
